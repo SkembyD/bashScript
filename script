@@ -1,0 +1,167 @@
+#: /bin/bash
+
+g=$(tput setaf 2) # Green
+y=$(tput setaf 3) # Yellow
+b=$(tput setaf 4) # Blue
+p=$(tput setaf 5) # Purple
+c=$(tput setaf 6) # Cyan
+w=$(tput setaf 7) # White
+n=$(tput sgr0) # Text reset
+
+echo " Bonjour bienvenue, vous êtes ici pour choisir un meuble personnalisé";
+
+echo "De quel type de bois voudrais tu ton meuble :";
+choix="";
+choix2="";
+choix3="";
+choix4="";
+choix5="";
+choix6="";
+choix7="";
+choix8="";
+choix9="";
+choix10="";
+choix11="";
+cl="type de bois : ";
+
+
+select rep in "le chêne" "le châtaigner" "le hêtre" "le sapin"; do
+  case $rep in
+    "le chêne" ) choix="1" cl+=" le chêne "; break ;;
+    "le châtaigner" ) choix="2" cl+=" le châtaigner "; break ;;
+    "le hêtre" ) choix="3" cl+=" le hêtre "; break ;;
+    "le sapin" ) choix="4" cl+=" le sapin "; break ;;
+  esac
+done
+
+cl+="\nmeuble : "
+
+echo "Que voudrais-tu ?: "
+select rep in "une table" "un bureau" "une bibliothèque" "une armoire"; do
+  case $rep in
+    "une table" ) choix2="1" cl+=" une table"; break ;;
+    "un bureau" ) choix2="2" cl+=" un bureau"; break ;;
+    "une bibliothèque" ) choix2="3" cl+=" une bibliothèque"; break ;;
+    "une armoire" ) choix2="4" cl+=" une armoire"; break ;;
+  esac
+done
+
+cl+="\ncouleur : "
+echo "Voulez vous une couleur spécifique ?"
+select yn in "Oui" "Non";do
+  case $yn in
+     Oui )  choix3="1" ; break ;;
+     Non )  choix3="2" cl+=" non"; break ;;
+  esac
+done
+
+
+
+if [ "$choix3" == "1" ]
+then
+  echo "De quelle couleur ?"
+  select yn in "noir" "blanc" "rose" "rouge";do
+    case $yn in
+      "noir" ) choix4="1" cl+=" noir"; break ;;
+      "blanc" ) choix4="2" cl+=" blanc"; break ;;
+      "rose" ) choix4="3" cl+=" rose"; break ;;
+      "rouge" ) choix4="4" cl+=" rouge"; break ;;
+    esac
+  done
+else
+    cl+="vous n'avez choisit de couleurs";
+fi
+
+
+cl+="\nvotre tranche de prix : "
+
+echo "Avez vous un prix ?"
+select yn in "0 - 49 euros" "50 - 99" "100 ++";do
+  case $yn in
+    "0 - 49 euros" ) choix5="1" cl+=" 0 - 49 euros"; break ;;
+    "50 - 99" ) choix5="2" cl+=" 50 - 99"; break ;;
+    "100 ++" ) choix5="3" cl+=" 100 ++"; break ;;
+  esac
+done
+
+cl+="\ngarantie : "
+if [ "$choix5" == "3" ] || [ "$choix5" == "2" ]
+then
+  echo "vouler vous prendre une garantie ? IMPORTANT garantie à tout problème";
+  select yn in "Oui" "Non";do
+    case $yn in
+       Oui )  choix6="1" cl+="oui"; break ;;
+       Non )  choix6="2" cl+="non"; break ;;
+    esac
+  done
+fi
+
+if [ "$choix6" == "2" ]
+then
+echo " vous n'avez pas pris de garantie êtes vous sur ? "
+select yn in "Oui" "Non";do
+  case $yn in
+     Oui )  choix7="1" ; break ;;
+     Non )  choix7="2" ; break ;;
+  esac
+done
+fi
+
+if [ $choix5 == "1" ]
+then
+  cl+="vous n'avez pas pris de garantie"
+fi
+
+cl+="\nlieux d'enoie : "
+echo "lieux d'envoie "
+select yn in "europe" "usa" "autre";do
+  case $yn in
+     "europe" )  choix8="1" cl+=" europe"; break ;;
+     "usa" )  choix8="2" cl+="  usa"; break ;;
+     "autre" )  choix8="3" cl+=" autre"; break ;;
+  esac
+done
+
+if [ "$choix8" == "1" ]
+then
+echo "choissisez votre pays : "
+cl+="\nchoissisez votre lieux : "
+select yn in "france" "espagne" "allemagne" "autre";do
+  case $yn in
+    "france" )  choix9="1" cl+=" france"; break ;;
+    "espagne" )  choix9="2" cl+=" espagne"; break ;;
+    "allemange" )  choix9="2" cl+=" allemange"; break ;;
+    "autre" )  choix9="2" cl+=" autre"; break ;;
+  esac
+done
+fi
+
+
+if [ "$choix8" == "2" ]
+then
+echo "choissisez votre lieux  "
+cl+="\nchoissisez votre lieux :"
+select yn in "north usa" "south usa" "weast usa" "east usa";do
+  case $yn in
+    "north usa" )  choix10="1" cl+=" north usa"; break ;;
+    "south usa" )  choix10="2" cl+=" south usa"; break ;;
+    "weast usa" )  choix10="2" cl+=" weast usa"; break ;;
+    "east usa" )  choix10="2" cl+=" east usa"; break ;;
+  esac
+done
+fi
+
+
+cl+="\nmoyen de financement :"
+echo "moyen de financement  "
+select yn in "carte" "crédit" ;do
+  case $yn in
+     "carte" )  choix11="1" cl+=" carte"; break ;;
+     "crédit" )  choix11="2" cl+=" crédit" ; break ;;
+  esac
+done
+
+cl+="\n"
+
+printf "$cl";
+
